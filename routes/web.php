@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes(['verify' => true]);
@@ -22,13 +22,16 @@ Auth::routes(['verify' => true]);
 Route::prefix('admin')->middleware('role:superadmin|admin|user')->group(function(){
     Route::get('/', 'AdminController@dashboard');
     Route::get('/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
+
+    //INI ROUTE USER
     Route::resource('/users', 'UsersController');
-    Route::post('/users/create', 'UsersController@create');
-    Route::get('/users/{id}/edit', 'UsersController@edit');
-    Route::get('/users/{id}/detail', 'UsersController@show');
-    Route::patch('/users/{id}', 'UsersController@update');
-    Route::get('/users/{id}', 'UsersController@destroy');
+
+    //INI ROUTE PERMISSION
     Route::resource('/permission', 'PermissionController');
+
+    //INI ROUTE ROLE
     Route::resource('/roles', 'RolesController');
+    Route::get('/roles/{id}', 'RolesController@destroy');
+    Route::post('/roles/{id}', 'RolesController@destroy');
 });
 // Route::get('/home', 'HomeController@index')->name('home');

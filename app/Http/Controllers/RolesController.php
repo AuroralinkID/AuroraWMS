@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Role;
+use Alert;
 
 class RolesController extends Controller
 {
@@ -14,11 +15,9 @@ class RolesController extends Controller
      */
     public function index()
     {
-        //
-        $roles= Role::latest()->paginate(10);
-        //  dd($roles);
-        return view('roles.index', compact('roles'))->with('i', (request()->input('page', 1) - 1) * 10);
-        // return view('roles.index')->withRole($roles);
+
+        $roles= Role::all();
+        return view('roles.index')->withRoles($roles);
     }
 
     /**
@@ -39,7 +38,20 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'display_name' => 'required|max:255'
+        ]);
+        $roles = new Role();
+        $roles->name = $request->name;
+        $roles->display_name = $request->display_name;
+        $roles->description = $request->description;
+
+        if ($roles->save()) {
+            return redirect()->route('roles.index')->with('success','Data Berhasil disimpan');
+        } else {
+            return redirect()->route('roles.create')->with('danger','Ups... Maaf');
+        }
     }
 
     /**
@@ -50,7 +62,8 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        //
+        $roles = Role::findOrFail($id);
+        return view('roles.index')->withRoles($roles);
     }
 
     /**
@@ -61,7 +74,8 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $roles = Role::findOrFail($id);
+        return view('roles.edit')->withRoles($roles);
     }
 
     /**
@@ -73,17 +87,39 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'display_name' => 'required|max:255'
+        ]);
+
+        $roles = Role::findOrFail($id);
+        $roles->name = $request->name;
+        $roles->display_name = $request->display_name;
+        $roles->description = $request->description;
+
+        if ($roles->save()) {
+            return redirect()->route('roles.index')->with('success','Data Berhasil diupdate');
+        } else {
+            return redirect()->route('roles.create')->with('danger','Ups...');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  App\Role  $role
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        // $roles->delete();
+        // return redirect()->back()->with('success','Data Berhasil dihapus');
+        $roles = Role::find($id);
+        if ($roles->delete()) {
+            return redirect()->route('roles.index')->with('success','Data Berhasil dihapus');
+        } else {
+            return redirect()->back()->with('danger','Ups...');
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Permission;
+use Alert;
 
 class PermissionController extends Controller
 {
@@ -17,8 +18,8 @@ class PermissionController extends Controller
         //
         $hak= Permission::all();
         return view('permission.index', compact('hak'));
-        // dd($hak);
-        // return view('permission.index')->withPermission($hak);
+        //  dd($hak);
+        // return view('permission.index')->withPermissions($hak);
     }
 
     /**
@@ -39,7 +40,21 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'display_name' => 'required|max:255'
+        ]);
+        $hak = new Permission();
+        $hak->name = $request->name;
+        $hak->display_name = $request->display_name;
+        $hak->description = $request->description;
+
+        if ($hak->save()) {
+            return redirect()->route('permission.index')->with('success','Data Berhasil disimpan');
+        } else {
+            Session::flash('danger', 'Ups... Maaf');
+            return redirect()->route('permission.index');
+        }
     }
 
     /**
@@ -50,7 +65,8 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        //
+        $hak = Permission::findOrFail($id);
+        return view('permission.detail')->withRoles($hak);
     }
 
     /**
@@ -73,17 +89,39 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'display_name' => 'required|max:255'
+        ]);
+
+        $hak = Permission::findOrFail($id);
+        $hak->name = $request->name;
+        $hak->display_name = $request->display_name;
+        $hak->description = $request->description;
+
+        if ($hak->save()) {
+            return redirect()->route('permission.index')->with('success','Data Berhasil diupdate');
+        } else {
+            Alert::flash('danger', 'Ups... Maaf');
+            return redirect()->route('permission.edit');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
+     * @param App\Permissions $hak
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+
+        $hak = Permission::find($id);
+        if ($hak->delete()) {
+            return redirect()->route('permission.index')->with('success','Data Berhasil dihapus');
+        } else {
+            return redirect()->back()->with('danger','Ups...');
+        }
     }
 }

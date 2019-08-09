@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Alert;
@@ -17,10 +18,11 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
-        $user= User::latest()->paginate(10);
-        // return view('users.index', compact('user'));
-        return view('users.index')->withUser($user)->with('i', (request()->input('page', 1) - 1) * 10);
+
+        // $user= User::all();
+        // $user = User::where('id', $role)->with('roles')->first();
+        $user = User::with('roles')->get();
+        return view('users.index', compact('user'));
     }
 
     /**
@@ -56,11 +58,9 @@ class UsersController extends Controller
         $user->password = Hash::make($password);
 
         if ($user->save()) {
-            // dd(Alert::success('Success Message', 'Optional Title'));
-            return redirect()->route('users.index')->with('success','Sekolahan deleted successfully');
+            return redirect()->route('users.index')->with('success','Data Berhasil disimpan');
         } else {
-            Session::flash('danger', 'Ups... Maaf');
-            return redirect()->route('users.create');
+            return redirect()->route('users.create')->with('danger','Ups... Maaf');
         }
 
 
@@ -82,12 +82,14 @@ class UsersController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
+     * @param Role $roles
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('users.edit')->withUser($user);
+        // $role = Role::all($roles);
+        $user = User::where('id', $id)->with('roles')->first();
+        return view('users.edit')->withUsers($user);
     }
 
     /**
@@ -108,9 +110,10 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;
+        // $user->roles = $request->roles;
 
         if ($user->save()) {
-            return redirect()->route('users.show', $id);
+            return redirect()->route('users.index', $id);
         } else {
             Session::flash('error', 'ups.... maaf');
             return redirect()->route('users.edit', $id);
@@ -128,7 +131,6 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        Alert::info('Info Message', 'Optional Title');
-        return redirect()->back()->with('success','Sekolahan deleted successfully');
+        return redirect()->back()->with('success','Data Berhasil dihapus');
     }
 }

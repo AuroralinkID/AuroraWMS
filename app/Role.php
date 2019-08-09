@@ -15,4 +15,8 @@ class Role extends LaratrustRole
      * @var array
      */
     protected $fillable = ['name', 'display_name', 'description'];
+    public function user()
+{
+    return $this->belongsToMany('User', 'name', 'email');
+}
 }
