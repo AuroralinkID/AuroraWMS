@@ -48,13 +48,36 @@ class PermissionController extends Controller
         $hak->name = $request->name;
         $hak->display_name = $request->display_name;
         $hak->description = $request->description;
-
         if ($hak->save()) {
             return redirect()->route('permission.index')->with('success','Data Berhasil disimpan');
         } else {
             Session::flash('danger', 'Ups... Maaf');
             return redirect()->route('permission.index');
         }
+
+        // $this->validate($request, [
+        //     'resource' => 'required|min:3|max:100|alpha'
+        // ]);
+
+        // $crud = explode(',', $request->crud_selected);
+        // if (count($crud > 0)) {
+        //     foreach ($crud as $x) {
+        //         $slug = strtolower($x).'-'.$request->resource;
+        //         $display_name = ucwords($x ." ".$request->resource);
+        //         $description = "Allow a user to ".strtoupper($x).'a'.ucwords($request->resource);
+
+        //         $hak = new Permission();
+        //         $hak->name = $slug;
+        //         $hak->display_name = $display_name;
+        //         $hak->description = $description;
+        //         $hak->save();
+        //         return redirect()->route('permission.index')->with('success','Data Berhasil disimpan');
+        //     }
+        // } else {
+        //     Session::flash('danger', 'Ups... Maaf');
+        //      return redirect()->route('permission.index');
+        // }
+
     }
 
     /**

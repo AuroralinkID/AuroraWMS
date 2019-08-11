@@ -113,72 +113,101 @@ return [
         [
             'text'    => 'Master',
             'icon'    => 'database',
+            'icon_color' => 'red',
             'submenu' => [
                 [
                     'text' => 'Barang',
                     'icon'    => 'cube',
                     'url'  => '#',
+                    'icon_color' => 'red',
                 ],
                 [
                     'text'    => 'Pelanggan',
                     'icon'    => 'users',
                     'url'     => '#',
+                    'icon_color' => 'orange',
                 ],
                 [
                     'text' => 'Gudang',
                     'icon'    => 'university',
                     'url'  => '#',
+                    'icon_color' => 'purple',
+                ],
+                [
+                    'text' => 'Perusahaan',
+                    'icon'    => 'building-o',
+                    'url'  => 'admin/perusahaan',
+                    'icon_color' => 'green',
+                ],
+                [
+                    'text' => 'Kategori',
+                    'icon'    => 'filter',
+                    'url'  => '/admin/kategori',
+                    'icon_color' => 'yellow',
+                ],
+                [
+                    'text' => 'Jenis',
+                    'icon'    => 'filter',
+                    'url'  => '/admin/jenis',
+                    'icon_color' => 'blue',
                 ],
                 [
                     'text' => 'Supplier',
                     'icon'    => 'truck',
                     'url'  => '#',
+                    'icon_color' => 'teal',
                 ],
             ],
         ],
-        'Management Barang',
         [
-            'text'       => 'Inbound',
-            'icon'    => 'truck',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'Outbound',
-            'icon'    => 'truck',
-            'icon_color' => 'yellow',
-        ],
-        [
-            'text'       => 'Put Away',
-            'icon'    => 'download',
-            'icon_color' => 'aqua',
-        ],
-        'Mangement Stock',
-        [
-            'text'       => 'Stock Opname',
+            'text'       => 'Management Barang',
             'icon'    => 'cubes',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'Aging Stock',
-            'icon'    => 'check',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'FIFO',
-            'icon'    => 'refresh',
-            'icon_color' => 'yellow',
-        ],
-        [
-            'text'       => 'Fast Moving',
-            'icon'    => 'download',
-            'icon_color' => 'aqua',
+            'icon_color' => 'blue',
+            'submenu' => [
+                [
+                    'text'       => 'Inbound',
+                    'icon'    => 'truck',
+                    'icon_color' => 'red',
+                ],
+                [
+                    'text'       => 'Outbound',
+                    'icon'    => 'truck',
+                    'icon_color' => 'yellow',
+                ],
+                [
+                    'text'       => 'Put Away',
+                    'icon'    => 'download',
+                    'icon_color' => 'aqua',
+                ],
+                [
+                    'text'       => 'Stock Opname',
+                    'icon'    => 'cubes',
+                    'icon_color' => 'red',
+                ],
+                [
+                    'text'       => 'Aging Stock',
+                    'icon'    => 'check',
+                    'icon_color' => 'red',
+                ],
+                [
+                    'text'       => 'FIFO',
+                    'icon'    => 'refresh',
+                    'icon_color' => 'yellow',
+                ],
+                [
+                    'text'       => 'Fast Moving',
+                    'icon'    => 'download',
+                    'icon_color' => 'aqua',
+                ],
+                [
+                    'text'       => 'Audit Trail',
+                    'icon'    => 'share',
+                    'icon_color' => 'red',
+                ],
+            ]
         ],
         'Management Gudang',
-        [
-            'text'       => 'Audit Trail',
-            'icon'    => 'share',
-            'icon_color' => 'red',
-        ],
+
         [
             'text'       => 'Transport',
             'icon'    => 'truck',

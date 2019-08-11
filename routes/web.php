@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::prefix('admin')->middleware('role:superadmin|admin|user')->group(function(){
+Route::prefix('admin')->middleware('role:superadministrator|superadmin|user')->group(function(){
     Route::get('/', 'AdminController@dashboard');
     Route::get('/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
 
@@ -33,5 +33,14 @@ Route::prefix('admin')->middleware('role:superadmin|admin|user')->group(function
     Route::resource('/roles', 'RolesController');
     Route::get('/roles/{id}', 'RolesController@destroy');
     Route::post('/roles/{id}', 'RolesController@destroy');
+
+    //INI ROUTE PERUSAHAAN
+    Route::resource('/perusahaan', 'PerusahaanController');
+
+    //INI ROUTE KATEGORI
+    Route::resource('/kategori', 'KategoriController');
+
+    //INI ROUTE JENIS
+    Route::resource('/jenis', 'JenisController');
 });
 // Route::get('/home', 'HomeController@index')->name('home');

@@ -19,9 +19,7 @@ class UsersController extends Controller
     public function index()
     {
 
-        // $user= User::all();
-        // $user = User::where('id', $role)->with('roles')->first();
-        $user = User::with('roles')->get();
+         $user= User::all();
         return view('users.index', compact('user'));
     }
 
@@ -50,18 +48,26 @@ class UsersController extends Controller
         'email' => 'required|email|unique:users'
         ]);
 
+        if($request->role == null){
+            $role = 0;
+        }
+        else{
+            $role = $request->role;
+        }
+        // $role = null;
         $password = '123456';
-
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($password);
-
-        if ($user->save()) {
-            return redirect()->route('users.index')->with('success','Data Berhasil disimpan');
-        } else {
-            return redirect()->route('users.create')->with('danger','Ups... Maaf');
-        }
+        $user->save();
+        $user->attachRole($role);
+        return redirect()->route('users.index')->with('success','Data Berhasil disimpan');
+        // if ($user->save()) {
+        //     return redirect()->route('users.index')->with('success','Data Berhasil disimpan');
+        // } else {
+        //     return redirect()->route('users.create')->with('danger','Ups... Maaf');
+        // }
 
 
     }
@@ -103,15 +109,22 @@ class UsersController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'email' => 'required|email|unique:users,email,'.$id
+            'email' => 'required|email|unique:users,email,'.$id,
+            // 'role' => 'boolean',
         ]);
 
+        if($request->role == null){
+            $role = 0;
+        }
+        else{
+            $role = $request->role;
+        }
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;
-        // $user->roles = $request->roles;
 
+        $user->attachRole($role);
         if ($user->save()) {
             return redirect()->route('users.index', $id);
         } else {

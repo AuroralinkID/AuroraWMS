@@ -84,13 +84,15 @@
                                                 </div>
 
                                                  <!-- /Checkbox -->
-                                                 @foreach(\App\Role::all() as $r)
                                                  <div class="form-group col-md-6">
                                                      <div class="icheck-danger d-inline">
-                                                         {!! Form::checkbox( $r->name, $r->id) !!}
+                                                            @foreach(\App\Role::all() as $r)
+                                                            <input type="hidden" name="role{{$r->id}}" value="0">
+                                                            <input class="form-check-input" type="checkbox" name="role" value="{{$r->id}}" style="position: relative;">
+                                                            <label class="form-check-label" >{{$r->display_name}}</label>
+                                                            @endforeach
                                                      </div>
                                                  </div>
-                                                 @endforeach
                                                  <!-- /.Checkbox -->
                                             </div>
                                             <!-- /.box-body -->
@@ -148,10 +150,12 @@
                             <td>{{$key+1}}</td>
                             <td>{{$usr->name}}</td>
                             <td>{{$usr->email}} </td>
-                            <td>{{$usr->status}} </td>
-                            @foreach ($usr->roles as $rl)
-                            <td>{{$rl->name}} </td>
-                            @endforeach
+                            <td>{{($usr->status ? 'Active' : 'Inactive')}} </td>
+                            <td>
+                                @foreach ($usr->roles as $rl)
+                                {{$rl->name}},
+                                @endforeach
+                            </td>
                             <td>{{$usr->created_at}} </td>
                             <td>
                                     <a href="#" data-toggle="modal" data-target="#myDetailModal{{ $usr->id }}" class="btn-sm btn-warning"><span class="fa fa-info-circle"></span></a>
@@ -175,8 +179,8 @@
                                                                 {{$usr->email}}
                                                             </div>
                                                             <div class="form-group col-md-6 required ">
-                                                                @foreach ($usr->roles as $rl)
-                                                                <label for="email" class="control-label">Role :</label>
+                                                                @foreach ($usr->roles as $key => $rl)
+                                                                <label for="email" class="control-label">Role {{$key+1}}:</label>
                                                                 {{$rl->name}}
                                                                 @endforeach
                                                             </div>
@@ -242,8 +246,9 @@
                                                         <label for="roles" class="control-label"><span class="fa fa-user"></span>  ROLE </label>
                                                         <div class="form-check">
                                                             @foreach(\App\Role::all() as $r)
-                                                            <input class="form-check-input" type="checkbox" value="{{$r->id}}" style="position: relative;">
-                                                            <label class="form-check-label">{{$r->display_name}}</label>
+                                                            <input type="hidden" name="role{{$r->id}}" value="0">
+                                                            <input class="form-check-input" type="checkbox" name="role" value="{{$r->id}}" style="position: relative;" @if($usr->roles->contains($r->id)) checked=checked @endif>
+                                                            <label class="form-check-label" >{{$r->display_name}}</label>
                                                             @endforeach
                                                         </div>
                                                   </div>

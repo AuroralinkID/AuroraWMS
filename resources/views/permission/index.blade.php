@@ -52,7 +52,7 @@
                                             <form method="POST" action="{{ route('permission.store') }}" >
                                                     {{ csrf_field() }}
                                             <div class="box-body">
-                                                <div class="form-group">
+                                                {{-- <div class="form-group">
                                                     <label>Resource</label>
                                                         <input type="text" class="form-control" placeholder="Enter ...">
                                                 </div>
@@ -92,8 +92,8 @@
                                                                 <td>Crud Deskripsi</td>
                                                                 </tr>
                                                             </tbody>
-                                                        </table>
-                                                {{-- <div class="form-group col-md-6 required ">
+                                                        </table> --}}
+                                                <div class="form-group col-md-6 required ">
                                                 <label for="name" class="control-label">Nama</label>
                                                     <div class="input-group">
                                                         <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
@@ -115,7 +115,7 @@
                                                             <div class="input-group-addon"><i class="fa fa-edit"></i></div>
                                                             <input class="form-control" placeholder="Masukkan Keterangan" required="required" name="description" type="textarea" id="description">
                                                         </div>
-                                                    </div> --}}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- /.box-body -->
