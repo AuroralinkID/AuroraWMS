@@ -17,7 +17,11 @@ class Perusahaan extends Model
 
     public function jenis()
     {
-        return $this->belongsToMany(jenis::class);
+        return $this->belongsTo(Jenis::class);
+    }
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class);
     }
 
     public function getLogo(){

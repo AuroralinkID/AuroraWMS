@@ -139,21 +139,37 @@
                     </div><!--md-dialog-->
                 </div><!--mydetailmodal-->
                 <!-- Ini akhiran modal tambah -->
-                <form method="GET" action="http://localhost/laravel/aurorakutansi/auth/users" accept-charset="UTF-8" role="form">
-                <div class="pull-left">
-                    <span class="title-filter hidden-xs">Cari:</span>
-                    <input class="form-control input-filter input-sm" placeholder="Ketik untuk mencari.." name="search" type="text">
-                </div>
-                <div class="pull-right">
-                    <select class="form-control input-filter input-sm" name="role"><option value="" selected="selected">Semua Peran </option><option value="1">Admin</option><option value="2">Manager</option><option value="3">Customer</option></select>
-                    <button type="submit" class="btn btn-sm btn-default btn-filter"><span class="fa fa-filter"></span> &nbsp;Menyaring</button>
-                </div>
-                </form>
-            </div>
-        <div class="pull-left">
-        <span class="title-filter hidden-xs">Menampilkan:</span>
-        <select class="form-control input-filter input-sm" onchange="this.form.submit()" name="limit"><option value="10">10</option><option value="25" selected="selected">25</option><option value="50">50</option><option value="100">100</option></select>
-        </div>
+
+
+                <!-- Form cari dan filter -->
+                <div class="form-group">
+                        <div class="input-group">
+                            <form method="GET" action="#" accept-charset="UTF-8" role="form">
+                                <div class="pull-left">
+                                    <select class="form-control input-filter input-sm" onchange="this.form.submit()" name="limit">
+                                        <option value="10">10</option>
+                                        <option value="25" selected="selected">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                                <div class="pull-left">
+                                        <input class="form-control input-filter input-sm" placeholder="Ketik untuk mencari.." name="search" type="text">
+                                </div>
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-sm btn-default btn-filter"><span class="fa fa-filter"></span> Filter</button>
+                                </div>
+                                <div class="pull-right">
+                                    <select class="form-control input-filter input-sm" name="role"><option value="" selected="selected"> Semua Peran </option>
+                                    <option value="1">Admin</option>
+                                </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Form cari dan filter -->
+
+
         <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                 <thead>
                 <tr role="row">

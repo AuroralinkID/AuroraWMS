@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Perusahaan;
 use App\Jenis;
 use App\Kategori;
+use App\Supplier;
+use Illuminate\Http\Request;
+use DB;
 
-class PerusahaanController extends Controller
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,23 +17,33 @@ class PerusahaanController extends Controller
      */
     public function index()
     {
-
-        $perusahaan = Perusahaan::all();
+        $supplier = Supplier::all();
         $kategori = Kategori::all();
         $jenis = Jenis::all();
-        // $de = $perusahaan->kategori;
-        //  dd($de);
-        return view('admin.perusahaan.index')->withPerusahaan($perusahaan)->withKategori($kategori)->withJenis($jenis);
+        return view('admin.supplier.index')->withSupplier($supplier)->withKategori($kategori)->withJenis($jenis);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
+        * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        // $this->validate($request, [
+        //     'name' => 'required|max:255',
+        //     'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     // 'email' => 'required|max:255|unique',
+        //     // 'website' => 'required|max:255|unique',
+        // ]);
+
+        // $supplier = Supplier::all();
+        // $kd = $request->jenis_id;
+        // $cd = $request->kategori_id;
+        // $code = DB::table('supplier')->max('id') + 1;
+        // $code = str_pad('S'.$cd.$kd.$code, 5, 0 , STR_PAD_LEFT);
+        // return view('admin.supplier.index')->withCode($code)->withSupplier($supplier);
+
     }
 
     /**
@@ -49,27 +60,32 @@ class PerusahaanController extends Controller
             // 'email' => 'required|max:255|unique',
             // 'website' => 'required|max:255|unique',
         ]);
+        $kd = $request->jenis_id;
+        $cd = $request->kategori_id;
+        $kode_supplier = DB::table('supplier')->max('id') + 1;
+        $kode_supplier = str_pad('S'.$cd.$kd.$kode_supplier, 5, 0 , STR_PAD_LEFT);
 
-        $perusahaan = new Perusahaan();
-        $perusahaan->name = $request->name;
-        $perusahaan->alamat = $request->alamat;
-        $perusahaan->telepon = $request->telepon;
-        $perusahaan->email = $request->email;
-        $perusahaan->website = $request->website;
-        $perusahaan->npwp = $request->npwp;
-        $perusahaan->kategori_id = $request->kategori_id;
-        $perusahaan->jenis_id = $request->jenis_id;
+        $sup = new Supplier();
+        $sup->name = $request->name;
+        $sup->nama_pic = $request->nama_pic;
+        $sup->alamat = $request->alamat;
+        $sup->telepon = $request->telepon;
+        $sup->email = $request->email;
+        $sup->website = $request->website;
+        $sup->npwp = $request->npwp;
+        $sup->kode_supplier = $kode_supplier;
+        $sup->kategori_id = $request->kategori_id;
+        $sup->jenis_id = $request->jenis_id;
 
         if($request->hasFile('logo'));
             $request->file('logo')->move('image/', $request->file('logo')->getClientOriginalName());
-            $perusahaan->logo = $request->file('logo')->getClientOriginalName();
+            $sup->logo = $request->file('logo')->getClientOriginalName();
 
-        if ($perusahaan->save()) {
+        if ($sup->save()) {
             return redirect()->back()->with('success','Data Berhasil disimpan');
         } else {
-            return redirect()->route('perusahaan.create')->with('danger','Ups... Maaf');
+            return redirect()->route('supplier.create')->with('danger','Ups... Maaf');
         }
-
     }
 
     /**
@@ -80,8 +96,8 @@ class PerusahaanController extends Controller
      */
     public function show($id)
     {
-        $perusahaan = Perusahaan::findOrFail($id);
-        return view('admin.perusahaan.detail')->withUser($perusahaan);
+        $sup = Supplier::findOrFail($id);
+        return view('supplier.detail')->withSup($sup);
     }
 
     /**
@@ -111,37 +127,20 @@ class PerusahaanController extends Controller
             // 'website' => 'required|max:255|unique',
         ]);
 
+        $supplier = Supplier::findOrFail($id);
+        $supplier->name = $request->name;
+        $supplier->alamat = $request->alamat;
+        $supplier->telepon = $request->telepon;
+        $supplier->email = $request->email;
+        $supplier->website = $request->website;
+        $supplier->npwp = $request->npwp;
+        $supplier->kategori_id = $request->kategori_id;
+        $supplier->jenis_id = $request->jenis_id;
 
-
-        $perusahaan = Perusahaan::findOrFail($id);
-        $perusahaan->name = $request->name;
-        $perusahaan->alamat = $request->alamat;
-        $perusahaan->telepon = $request->telepon;
-        $perusahaan->email = $request->email;
-        $perusahaan->website = $request->website;
-        $perusahaan->npwp = $request->npwp;
-        $perusahaan->kategori_id = $request->kategori_id;
-        $perusahaan->jenis_id = $request->jenis_id;
-
-        // if($request->kategori == null){
-        //     $kategori = 0;
-        // }
-        // else{
-        //     $kategori = $request->kategori;
-        // }
-        // $perusahaan->kategori()->attach($kategori);
-
-        // if($request->jenis == null){
-        //     $jenis = 0;
-        // }
-        // else{
-        //     $jenis = $request->jenis;
-        // }
-        // $perusahaan->jenis()->attach($jenis);
         if($request->hasFile('logo'));
             $request->file('logo')->move('image/', $request->file('logo')->getClientOriginalName());
-            $perusahaan->logo = $request->file('logo')->getClientOriginalName();
-        if ($perusahaan->save()) {
+            $supplier->logo = $request->file('logo')->getClientOriginalName();
+        if ($supplier->save()) {
             return redirect()->back()->with('success','Data Berhasil disimpan');
         } else {
             return redirect()->route('admin.perusahaan.create')->with('danger','Ups... Maaf');
@@ -156,13 +155,11 @@ class PerusahaanController extends Controller
      */
     public function destroy($id)
     {
-       $perusahaan = Perusahaan::find($id);
-        if ($perusahaan->delete()) {
+        $sup = Supplier::find($id);
+        if ($sup->delete()) {
             return redirect()->back()->with('success','Data Berhasil dihapus');
         } else {
             return redirect()->back()->with('danger','Ups...');
         }
-
-        }
-
+    }
 }

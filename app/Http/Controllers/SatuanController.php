@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Satuan;
 use Illuminate\Http\Request;
-use App\Kategori;
 
-class KategoriController extends Controller
+class SatuanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $kategori = Kategori::all();
-        return view('kategori.index', compact('kategori'));
+        $satuan = Satuan::all();
+        return view('admin.barang.satuan')->withSatuan($satuan);
     }
 
     /**
@@ -40,15 +40,14 @@ class KategoriController extends Controller
             'name' => 'required|max:255',
             'description' => 'required|max:255'
         ]);
-        $kat = new Kategori();
-        $kat->name = $request->name;
-        $kat->warna = $request->warna;
-        $kat->description = $request->description;
+        $satuan = new Satuan();
+        $satuan->name = $request->name;
+        $satuan->description = $request->description;
 
-        if ($kat->save()) {
-            return redirect()->route('kategori.index')->with('success','Data Berhasil disimpan');
+        if ($satuan->save()) {
+            return redirect()->back()->with('success','Data Berhasil disimpan');
         } else {
-            return redirect()->route('kategori.create')->with('danger','Ups... Maaf');
+            return redirect()->route('barang.satuan.create')->with('danger','Ups... Maaf');
         }
     }
 
@@ -60,8 +59,8 @@ class KategoriController extends Controller
      */
     public function show($id)
     {
-        $kat = Kategori::findOrFail($id);
-        return view('roles.edit')->withRoles($kat);
+        $satuan = Satuan::findOrFail($id);
+        return view('admin.barang.satuan')->withRoles($satuan);
     }
 
     /**
@@ -89,15 +88,14 @@ class KategoriController extends Controller
             'description' => 'required|max:255'
         ]);
 
-        $kat = Role::findOrFail($id);
-        $kat->name = $request->name;
-        $kat->warna = $request->warna;
-        $kat->description = $request->description;
+        $satuan = Satuan::findOrFail($id);
+        $satuan->name = $request->name;
+        $satuan->description = $request->description;
 
-        if ($kat->save()) {
-            return redirect()->route('kategori.index')->with('success','Data Berhasil diupdate');
+        if ($satuan->save()) {
+            return redirect()->back()->with('success','Data Berhasil diupdate');
         } else {
-            return redirect()->route('kategori.create')->with('danger','Ups...');
+            return redirect()->route('barang.satuan.edit')->with('danger','Ups...');
         }
     }
 
@@ -109,9 +107,9 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $kat = Kategori::find($id);
-        if ($kat->delete()) {
-            return redirect()->route('kategori.index')->with('success','Data Berhasil dihapus');
+        $satuan = Satuan::find($id);
+        if ($satuan->delete()) {
+            return redirect()->back()->with('success','Data Berhasil dihapus');
         } else {
             return redirect()->back()->with('danger','Ups...');
         }

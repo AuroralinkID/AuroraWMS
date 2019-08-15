@@ -15,8 +15,8 @@ class Jenis extends Model
      */
     protected $fillable = ['name', 'description'];
 
-    public function kategori()
+    public function perusahaan()
     {
-        return $this->belongsToMany(Kategori::class);
+        return $this->hasOne(Perusahaan::class);
     }
 }

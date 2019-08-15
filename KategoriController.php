@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Jenis;
+use App\Kategori;
 
-class JenisController extends Controller
+class KategoriController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class JenisController extends Controller
      */
     public function index()
     {
-        $jenis = Jenis::all();
-        return view('admin.perusahaan.jenis')->withJenis($jenis);
+        $kategori = Kategori::all();
+        return view('admin.perusahaan.kategori', compact('kategori'));
     }
 
     /**
@@ -40,14 +40,15 @@ class JenisController extends Controller
             'name' => 'required|max:255',
             'description' => 'required|max:255'
         ]);
-        $jenis = new Jenis();
-        $jenis->name = $request->name;
-        $jenis->description = $request->description;
+        $kat = new Kategori();
+        $kat->name = $request->name;
+        $kat->warna = $request->warna;
+        $kat->description = $request->description;
 
-        if ($jenis->save()) {
-            return redirect()->route('jenis.index')->with('success','Data Berhasil disimpan');
+        if ($kat->save()) {
+            return redirect()->route('kategori.index')->with('success','Data Berhasil disimpan');
         } else {
-            return redirect()->route('jenis.create')->with('danger','Ups... Maaf');
+            return redirect()->route('kategori.create')->with('danger','Ups... Maaf');
         }
     }
 
@@ -59,8 +60,8 @@ class JenisController extends Controller
      */
     public function show($id)
     {
-        $jenis = Jenis::findOrFail($id);
-        return view('jenis.edit')->withRoles($jenis);
+        $kat = Kategori::findOrFail($id);
+        return view('roles.edit')->withRoles($kat);
     }
 
     /**
@@ -88,14 +89,15 @@ class JenisController extends Controller
             'description' => 'required|max:255'
         ]);
 
-        $jenis = Jenis::findOrFail($id);
-        $jenis->name = $request->name;
-        $jenis->description = $request->description;
+        $kat = Kategori::findOrFail($id);
+        $kat->name = $request->name;
+        $kat->warna = $request->warna;
+        $kat->description = $request->description;
 
-        if ($jenis->save()) {
-            return redirect()->route('jenis.index')->with('success','Data Berhasil diupdate');
+        if ($kat->save()) {
+            return redirect()->route('kategori.index')->with('success','Data Berhasil diupdate');
         } else {
-            return redirect()->route('jenis.create')->with('danger','Ups...');
+            return redirect()->route('kategori.create')->with('danger','Ups...');
         }
     }
 
@@ -107,9 +109,9 @@ class JenisController extends Controller
      */
     public function destroy($id)
     {
-        $jenis = Jenis::find($id);
-        if ($jenis->delete()) {
-            return redirect()->route('jenis.index')->with('success','Data Berhasil dihapus');
+        $kat = Kategori::find($id);
+        if ($kat->delete()) {
+            return redirect()->route('kategori.index')->with('success','Data Berhasil dihapus');
         } else {
             return redirect()->back()->with('danger','Ups...');
         }

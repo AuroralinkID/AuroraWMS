@@ -15,9 +15,9 @@ class Kategori extends Model
      */
     protected $fillable = ['name', 'description', 'color'];
 
-    public function jenis()
+    public function perusahaan()
     {
-        return $this->belongsToMany(Jenis::class);
+        return $this->hasOne(Perusahaan::class);
     }
 
 }

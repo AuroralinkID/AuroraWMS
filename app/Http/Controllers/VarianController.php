@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Varian;
 use Illuminate\Http\Request;
-use App\Jenis;
 
-class JenisController extends Controller
+class VarianController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class JenisController extends Controller
      */
     public function index()
     {
-        $jenis = Jenis::all();
-        return view('admin.perusahaan.jenis')->withJenis($jenis);
+        $variant = Varian::all();
+        return view('admin.barang.varian')->withVariant ($variant);
     }
 
     /**
@@ -40,14 +40,14 @@ class JenisController extends Controller
             'name' => 'required|max:255',
             'description' => 'required|max:255'
         ]);
-        $jenis = new Jenis();
-        $jenis->name = $request->name;
-        $jenis->description = $request->description;
+        $variant = new Varian();
+        $variant->name = $request->name;
+        $variant->description = $request->description;
 
-        if ($jenis->save()) {
-            return redirect()->route('jenis.index')->with('success','Data Berhasil disimpan');
+        if ($variant->save()) {
+            return redirect()->back()->with('success','Data Berhasil disimpan');
         } else {
-            return redirect()->route('jenis.create')->with('danger','Ups... Maaf');
+            return redirect()->route('barang.varian.create')->with('danger','Ups... Maaf');
         }
     }
 
@@ -59,8 +59,8 @@ class JenisController extends Controller
      */
     public function show($id)
     {
-        $jenis = Jenis::findOrFail($id);
-        return view('jenis.edit')->withRoles($jenis);
+        $variant = Satuan::findOrFail($id);
+        return view('admin.varian.satuan')->withRoles($variant);
     }
 
     /**
@@ -88,14 +88,14 @@ class JenisController extends Controller
             'description' => 'required|max:255'
         ]);
 
-        $jenis = Jenis::findOrFail($id);
-        $jenis->name = $request->name;
-        $jenis->description = $request->description;
+        $variant = Varian::findOrFail($id);
+        $variant->name = $request->name;
+        $variant->description = $request->description;
 
-        if ($jenis->save()) {
-            return redirect()->route('jenis.index')->with('success','Data Berhasil diupdate');
+        if ($variant->save()) {
+            return redirect()->back()->with('success','Data Berhasil diupdate');
         } else {
-            return redirect()->route('jenis.create')->with('danger','Ups...');
+            return redirect()->route('barang.varian.edit')->with('danger','Ups...');
         }
     }
 
@@ -107,9 +107,9 @@ class JenisController extends Controller
      */
     public function destroy($id)
     {
-        $jenis = Jenis::find($id);
-        if ($jenis->delete()) {
-            return redirect()->route('jenis.index')->with('success','Data Berhasil dihapus');
+        $variant = Varian::find($id);
+        if ($variant->delete()) {
+            return redirect()->back()->with('success','Data Berhasil dihapus');
         } else {
             return redirect()->back()->with('danger','Ups...');
         }

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Perusahaan;
 use App\Jenis;
 use App\Kategori;
+use App\Pelanggan;
+use Illuminate\Http\Request;
+use DB;
 
-class PerusahaanController extends Controller
+class PelangganController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +17,11 @@ class PerusahaanController extends Controller
      */
     public function index()
     {
-
-        $perusahaan = Perusahaan::all();
+        $pelanggan = Pelanggan::all();
         $kategori = Kategori::all();
         $jenis = Jenis::all();
-        // $de = $perusahaan->kategori;
-        //  dd($de);
-        return view('admin.perusahaan.index')->withPerusahaan($perusahaan)->withKategori($kategori)->withJenis($jenis);
+
+        return view('admin.pelanggan.index')->withPelanggan($pelanggan)->withKategori($kategori)->withJenis($jenis);
     }
 
     /**
@@ -49,27 +48,32 @@ class PerusahaanController extends Controller
             // 'email' => 'required|max:255|unique',
             // 'website' => 'required|max:255|unique',
         ]);
+        $kd = $request->jenis_id;
+        $cd = $request->kategori_id;
+        $kode_pelanggan = DB::table('pelanggan')->max('id') + 1;
+        $kode_pelanggan = str_pad('P'.$cd.$kd.$kode_pelanggan, 5, 0 , STR_PAD_LEFT);
 
-        $perusahaan = new Perusahaan();
-        $perusahaan->name = $request->name;
-        $perusahaan->alamat = $request->alamat;
-        $perusahaan->telepon = $request->telepon;
-        $perusahaan->email = $request->email;
-        $perusahaan->website = $request->website;
-        $perusahaan->npwp = $request->npwp;
-        $perusahaan->kategori_id = $request->kategori_id;
-        $perusahaan->jenis_id = $request->jenis_id;
+        $pelanggan = new Pelanggan();
+        $pelanggan->name = $request->name;
+        $pelanggan->nama_pemilik = $request->nama_pemilik;
+        $pelanggan->alamat = $request->alamat;
+        $pelanggan->telepon = $request->telepon;
+        $pelanggan->email = $request->email;
+        $pelanggan->website = $request->website;
+        $pelanggan->npwp = $request->npwp;
+        $pelanggan->kode_pelanggan = $kode_pelanggan;
+        $pelanggan->kategori_id = $request->kategori_id;
+        $pelanggan->jenis_id = $request->jenis_id;
 
         if($request->hasFile('logo'));
             $request->file('logo')->move('image/', $request->file('logo')->getClientOriginalName());
-            $perusahaan->logo = $request->file('logo')->getClientOriginalName();
+            $pelanggan->logo = $request->file('logo')->getClientOriginalName();
 
-        if ($perusahaan->save()) {
+        if ($pelanggan->save()) {
             return redirect()->back()->with('success','Data Berhasil disimpan');
         } else {
-            return redirect()->route('perusahaan.create')->with('danger','Ups... Maaf');
+            return redirect()->route('pelanggan.create')->with('danger','Ups... Maaf');
         }
-
     }
 
     /**
@@ -80,8 +84,9 @@ class PerusahaanController extends Controller
      */
     public function show($id)
     {
-        $perusahaan = Perusahaan::findOrFail($id);
-        return view('admin.perusahaan.detail')->withUser($perusahaan);
+        $pelanggan = Pelanggan::findOrFail($id);
+        return view('pelanggan.detail')->withPelanggan($pelanggan);
+
     }
 
     /**
@@ -111,40 +116,24 @@ class PerusahaanController extends Controller
             // 'website' => 'required|max:255|unique',
         ]);
 
+        $pelanggan = Pelanggan::findOrFail($id);
+        $pelanggan->name = $request->name;
+        $pelanggan->nama_pemilik = $request->nama_pemilik;
+        $pelanggan->alamat = $request->alamat;
+        $pelanggan->telepon = $request->telepon;
+        $pelanggan->email = $request->email;
+        $pelanggan->website = $request->website;
+        $pelanggan->npwp = $request->npwp;
+        $pelanggan->kategori_id = $request->kategori_id;
+        $pelanggan->jenis_id = $request->jenis_id;
 
-
-        $perusahaan = Perusahaan::findOrFail($id);
-        $perusahaan->name = $request->name;
-        $perusahaan->alamat = $request->alamat;
-        $perusahaan->telepon = $request->telepon;
-        $perusahaan->email = $request->email;
-        $perusahaan->website = $request->website;
-        $perusahaan->npwp = $request->npwp;
-        $perusahaan->kategori_id = $request->kategori_id;
-        $perusahaan->jenis_id = $request->jenis_id;
-
-        // if($request->kategori == null){
-        //     $kategori = 0;
-        // }
-        // else{
-        //     $kategori = $request->kategori;
-        // }
-        // $perusahaan->kategori()->attach($kategori);
-
-        // if($request->jenis == null){
-        //     $jenis = 0;
-        // }
-        // else{
-        //     $jenis = $request->jenis;
-        // }
-        // $perusahaan->jenis()->attach($jenis);
         if($request->hasFile('logo'));
             $request->file('logo')->move('image/', $request->file('logo')->getClientOriginalName());
-            $perusahaan->logo = $request->file('logo')->getClientOriginalName();
-        if ($perusahaan->save()) {
+            $pelanggan->logo = $request->file('logo')->getClientOriginalName();
+        if ($pelanggan->save()) {
             return redirect()->back()->with('success','Data Berhasil disimpan');
         } else {
-            return redirect()->route('admin.perusahaan.create')->with('danger','Ups... Maaf');
+            return redirect()->route('pelanggan.create')->with('danger','Ups... Maaf');
         }
     }
 
@@ -156,13 +145,12 @@ class PerusahaanController extends Controller
      */
     public function destroy($id)
     {
-       $perusahaan = Perusahaan::find($id);
-        if ($perusahaan->delete()) {
+        $pelanggan = Pelanggan::find($id);
+        if ($pelanggan->delete()) {
             return redirect()->back()->with('success','Data Berhasil dihapus');
         } else {
             return redirect()->back()->with('danger','Ups...');
         }
 
-        }
-
+    }
 }

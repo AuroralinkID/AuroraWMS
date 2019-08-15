@@ -116,16 +116,30 @@ return [
             'icon_color' => 'red',
             'submenu' => [
                 [
-                    'text' => 'Barang',
-                    'icon'    => 'cube',
+                    'text' => 'Perusahaan',
+                    'icon'    => 'building-o',
                     'url'  => '#',
-                    'icon_color' => 'red',
-                ],
-                [
-                    'text'    => 'Pelanggan',
-                    'icon'    => 'users',
-                    'url'     => '#',
-                    'icon_color' => 'orange',
+                    'icon_color' => 'green',
+                    'submenu' => [
+                        [
+                            'text' => 'Daftar Perusahaan',
+                            'icon'    => 'building',
+                            'url'  => 'admin/p/perusahaan',
+                            'icon_color' => 'blue',
+                        ],
+                        [
+                            'text' => 'Kategori Perusahaan',
+                            'icon'    => 'filter',
+                            'url'  => 'admin/p/kategori',
+                            'icon_color' => 'yellow',
+                        ],
+                        [
+                            'text' => 'Jenis Perusahaan',
+                            'icon'    => 'filter',
+                            'url'  => 'admin/p/jenis',
+                            'icon_color' => 'blue',
+                        ],
+                    ]
                 ],
                 [
                     'text' => 'Gudang',
@@ -134,27 +148,41 @@ return [
                     'icon_color' => 'purple',
                 ],
                 [
-                    'text' => 'Perusahaan',
-                    'icon'    => 'building-o',
-                    'url'  => 'admin/perusahaan',
-                    'icon_color' => 'green',
+                    'text' => 'Barang',
+                    'icon'    => 'cubes',
+                    'url'  => '#',
+                    'icon_color' => 'red',
+                    'submenu' => [
+                       [
+                        'text' => 'Daftar Barang',
+                        'icon'    => 'cube',
+                        'url'  => 'admin/b/barang',
+                        'icon_color' => 'red',
+                       ],
+                       [
+                        'text' => 'Daftar Varian',
+                         'icon'    => 'sort-alpha-desc',
+                         'url'  => 'admin/b/varian',
+                         'icon_color' => 'red',
+                       ],
+                       [
+                        'text' => 'Daftar Satuan',
+                         'icon'    => 'sort-numeric-asc',
+                         'url'  => 'admin/b/satuan',
+                         'icon_color' => 'red',
+                        ]
+                    ]
                 ],
                 [
-                    'text' => 'Kategori',
-                    'icon'    => 'filter',
-                    'url'  => '/admin/kategori',
-                    'icon_color' => 'yellow',
-                ],
-                [
-                    'text' => 'Jenis',
-                    'icon'    => 'filter',
-                    'url'  => '/admin/jenis',
-                    'icon_color' => 'blue',
+                    'text'    => 'Pelanggan',
+                    'icon'    => 'users',
+                    'url'     => 'admin/pelanggan',
+                    'icon_color' => 'orange',
                 ],
                 [
                     'text' => 'Supplier',
                     'icon'    => 'truck',
-                    'url'  => '#',
+                    'url'  => 'admin/supplier',
                     'icon_color' => 'teal',
                 ],
             ],
