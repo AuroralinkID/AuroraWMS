@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 @section('title')
-    AuroraWMS | Satuan Barang
+    AuroraWMS | Dimensi
 @endsection
 @section('content_header')
 <h1>
-    <span class="fa fa-sort-numeric-asc"></span> Satuan Barang
+    <span class="fa fa-cube"></span> Dimensi Barang
     <a href="#" data-toggle="modal" data-target="#myAddModal" class="btn-sm btn-primary"><span class="fa fa-plus"></span> Tambah Data</a>
 </h1>
 <div class="text-right">
@@ -34,7 +34,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h3 class="modal-title" id="myModalLabel">Tambah Satuan Barang <span style="margin: 19px;"></h3>
+                        <h3 class="modal-title" id="myModalLabel">Tambah Dimensi Barang <span style="margin: 19px;"></h3>
                                 <div class="box box-warning">
                                         @if ($message = Session::get('info'))
                                         <div class="alert alert-info alert-block">
@@ -55,23 +55,44 @@
                                         <div class="box-body">
 
                                         <!-- Start Form -->
-                                        <form method="POST" action="{{ route('satuan.store') }}" >
+                                        <form method="POST" action="{{ route('kubikasi.store') }}" >
                                                 {{ csrf_field() }}
                                         <div class="box-body">
                                             <div class="form-group col-md-6 required ">
                                             <label for="name" class="control-label">Nama</label>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                    <input class="form-control" placeholder="Masukkan Nama Satuan" required="required" name="name" type="text" id="name">
+                                                    <input class="form-control" placeholder="Masukkan Nama Kubikasi" required="required" name="nama" type="text" id="nama">
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6 required ">
-                                                <label for="description" class="control-label">Deskripsi</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon"><i class="fa fa-edit"></i></div>
-                                                        <input class="form-control" placeholder="Masukkan Deskripsi Satuan" required="required" name="description" type="textarea" id="description">
-                                                    </div>
+                                            <label for="name" class="control-label">Panjang</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-subscript"></i></div>
+                                                    <input class="form-control" placeholder="Masukkan Panjang Barang" required="required" name="panjang" type="number" id="panjang">
                                                 </div>
+                                            </div>
+                                            <div class="form-group col-md-6 required ">
+                                            <label for="name" class="control-label">Lebar</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-subscript"></i></div>
+                                                    <input class="form-control" placeholder="Masukkan Lebar Barang" required="required" name="lebar" type="number" id="lebar">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 required ">
+                                            <label for="name" class="control-label">Tinggi</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-subscript"></i></div>
+                                                    <input class="form-control" placeholder="Masukkan Tinggi Barang" required="required" name="tinggi" type="number" id="tinggi">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 required ">
+                                            <label for="name" class="control-label">Berat</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-subscript"></i></div>
+                                                    <input class="form-control" placeholder="Masukkan Berat Barang" required="required" name="berat" type="number" id="berat">
+                                                </div>
+                                            </div>
                                         </div>
                                         <!-- /.box-body -->
                                         <!-- box-footer -->
@@ -127,18 +148,26 @@
                 <thead>
                 <tr role="row">
                     <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">No</th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Nama</th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Deskripsi</th>
-                    <th width="150px">Aksi</th></tr>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Nama </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Panjang cm</th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Lebar cm</th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Tinggi cm</th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Berat kg</th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Luas cm</th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Aksi</th>
                 </thead>
                 <tbody>
-                        @if($satuan->count())
-                        @foreach($satuan as $key => $jn)
+                        @if($kubikasi->count())
+                        @foreach($kubikasi as $key => $jn)
                         <tr>
                             {{-- <td><input type="checkbox" class="sub_chk" data-id="{{$jn->id}}"></td> --}}
                             <td>{{$key+1}}</td>
-                            <td>{{$jn->name}}</td>
-                            <td>{{$jn->description}}</td>
+                            <td>{{$jn->nama}} ({{$jn->panjang}}cm X {{$jn->lebar}}cm X {{$jn->tinggi}}cm )</td>
+                            <td>{{$jn->panjang}}</td>
+                            <td>{{$jn->lebar}}</td>
+                            <td>{{$jn->tinggi}}</td>
+                            <td>{{$jn->berat}}</td>
+                            <td>{{$jn->luas}}</td>
                             <td>
                                     <a href="#" data-toggle="modal" data-target="#myDetailModal{{ $jn->id }}" class="btn-sm btn-warning"><span class="fa fa-info-circle"></span></a>
                                     <a href="#" data-toggle="modal" data-target="#myEditModal{{ $jn->id }}" class="btn-sm btn-primary"><span class="fa fa-edit"></span></a>
@@ -149,15 +178,30 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h3 class="modal-title" id="myModalLabel">Detail Jenis <strong>{{$jn->name}}</strong>  <span style="margin: 19px;"></h3>
+                                        <h3 class="modal-title" id="myModalLabel">Detail Dimensi <strong>{{$jn->nama}} ({{$jn->panjang}}cm X {{$jn->lebar}}cm X {{$jn->tinggi}}cm )</strong>  <span style="margin: 19px;"></h3>
                                                 <div class="box box-warning">
                                                     <div class="modal-body">
                                                         <div class="box-body">
                                                             <div class="form-group col-md-6 required ">
-                                                                <label for="name" class="control-label">Nama : {{$jn->name}}</label>
+                                                                <label for="name" class="control-label">Nama : {{$jn->nama}}</label>
                                                             </div>
                                                             <div class="form-group col-md-6 required ">
-                                                                <label for="name" class="control-label">Deskripsi : {{$jn->description}}</label>
+                                                                <label for="name" class="control-label">Panjang : {{$jn->panjang}}cm</label>
+                                                            </div>
+                                                            <div class="form-group col-md-6 required ">
+                                                                <label for="name" class="control-label">Lebar : {{$jn->lebar}}cm</label>
+                                                            </div>
+                                                            <div class="form-group col-md-6 required ">
+                                                                <label for="name" class="control-label">Tinggi : {{$jn->tinggi}}cm</label>
+                                                            </div>
+                                                            <div class="form-group col-md-6 required ">
+                                                                <label for="name" class="control-label">Berat : {{$jn->berat}}kg</label>
+                                                            </div>
+                                                            <div class="form-group col-md-6 required ">
+                                                                <label for="name" class="control-label">Luas : {{$jn->luas}}cm2</label>
+                                                            </div>
+                                                            <div class="form-group col-md-6 required ">
+                                                                <label for="name" class="control-label">Dimensi : {{$jn->dimensi}}cm3</label>
                                                             </div>
                                                         </div><!-- box-body-->
                                                     </div><!-- modal-body-->
@@ -176,11 +220,11 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h3 class="modal-title" id="myModalLabel">Edit Jenis <strong>{{$jn->name}}</strong><span style="margin: 19px;"></h3>
+                                        <h3 class="modal-title" id="myModalLabel">Edit Dimensi <strong>{{$jn->nama}} ({{$jn->panjang}}cm X {{$jn->lebar}}cm X {{$jn->tinggi}}cm )</strong><span style="margin: 19px;"></h3>
                                             <div class="box box-warning">
                                                 <div class="modal-body">
                                                 <!-- Start Form -->
-                                                        <form method="POST" action="{{ route('satuan.update', $jn->id) }}" accept-charset="UTF-8" role="form" class="form-loading-button" enctype="multipart/form-data"><input name="_method" type="hidden" value="PATCH">
+                                                        <form method="POST" action="{{ route('kubikasi.update', $jn->id) }}" accept-charset="UTF-8" role="form" class="form-loading-button" enctype="multipart/form-data"><input name="_method" type="hidden" value="PATCH">
                                                             {{method_field('patch')}}
                                                             {{csrf_field()}}
                                                             <div class="box-body">
@@ -188,14 +232,49 @@
                                                                 <label for="name" class="control-label">Nama</label>
                                                                     <div class="input-group">
                                                                         <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                    <input class="form-control" placeholder="Masukkan Nama" required="required" name="name" type="text" value="{{$jn->name}}" id="name">
+                                                                    <input class="form-control" placeholder="Masukkan Nama" required="required" name="nama" type="text" value="{{$jn->nama}}" id="nama">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group col-md-6 required ">
-                                                                <label for="description" class="control-label">Deskripsi</label>
+                                                                <label for="description" class="control-label">Panjang</label>
                                                                     <div class="input-group">
-                                                                        <div class="input-group-addon"><i class="fa fa-edit"></i></div>
-                                                                        <input class="form-control" placeholder="Masukkan Keterangan" required="required" name="description" type="text" value="{{$jn->description}}" id="description">
+                                                                        <div class="input-group-addon"><i class="fa fa-subscript"></i></div>
+                                                                        <input class="form-control" placeholder="Masukkan Panjang Barang" required="required" name="panjang" type="number" value="{{$jn->description}}" id="description">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6 required ">
+                                                                <label for="description" class="control-label">Lebar</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i class="fa fa-subscript"></i></div>
+                                                                        <input class="form-control" placeholder="Masukkan Panjang Barang" required="required" name="lebar" type="number" value="{{$jn->lebar}}" id="lebar">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6 required ">
+                                                                <label for="description" class="control-label">Tinggi</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i class="fa fa-subscript"></i></div>
+                                                                        <input class="form-control" placeholder="Masukkan Panjang Barang" required="required" name="tinggi" type="number" value="{{$jn->tinggi}}" id="tinggi">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6 required ">
+                                                                <label for="description" class="control-label">Berat</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i class="fa fa-subscript"></i></div>
+                                                                        <input class="form-control" placeholder="Masukkan Panjang Barang" required="required" name="berat" type="number" value="{{$jn->berat}}" id="berat">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6 required ">
+                                                                <label for="description" class="control-label">Luas</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i class="fa fa-calculator"></i></div>
+                                                                        <input class="form-control" placeholder="Masukkan Panjang Barang" name="luas" type="number" value="{{$jn->luas}}" id="luas" disabled='true'>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6 required ">
+                                                                <label for="description" class="control-label">Dimensi</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i class="fa fa-calculator"></i></div>
+                                                                        <input class="form-control" placeholder="Masukkan Panjang Barang" name="dimensi" type="number" value="{{$jn->dimensi}}" id="dimensi" disabled='true'>
                                                                     </div>
                                                                 </div>
                                                                 <!-- /.box-body -->
@@ -228,7 +307,7 @@
                                         </div>
                                         <div class="modal-body">
                                                 <div class="text-center">
-                                                    <h3>Yakin Mau Menghapus<strong> {{$jn->name}} </strong>?</h3>
+                                                    <h3>Yakin Mau Menghapus<strong> {{$jn->nama}} ({{$jn->panjang}}cm X {{$jn->lebar}}cm X {{$jn->tinggi}}cm ) </strong>?</h3>
                                                 </div>
                                                 @if ($errors->any())
                                                 <div class="alert alert-danger">
@@ -239,7 +318,7 @@
                                                     </ul>
                                                 </div><br />
                                                 @endif
-                                            <form method="post" action="{{ route('satuan.destroy',$jn->id) }}" style="margin: 19px;">
+                                            <form method="post" action="{{ route('kubikasi.destroy',$jn->id) }}" style="margin: 19px;">
                                                     {{csrf_field()}}
                                                     @method('DELETE')
                                             <div class="modal-footer">

@@ -221,7 +221,7 @@
                             <td>{{$pl->telepon}}</td>
                             <td>{{$pl->website}}</td>
                             <td>{{$pl->jenis['name']}}</td>
-                            <td>{{$pl->kategori['name']}}</td>
+                            <td class="btn betn-outline" style="background-color: {{$pl->kategori['warna']}}" >{{$pl->kategori['name']}}</td>
                             <td>
                                     <a href="#" data-toggle="modal" data-target="#myDetailModal{{ $pl->id }}" class="btn-sm btn-warning"><span class="fa fa-info-circle"></span></a>
                                     <a href="#" data-toggle="modal" data-target="#myEditModal{{ $pl->id }}" class="btn-sm btn-primary"><span class="fa fa-edit"></span></a>

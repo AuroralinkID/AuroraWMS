@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::prefix('admin')->middleware('role:superadministrator|administrator|admin')->group(function(){
+Route::prefix('admin')->middleware('role:superadministrator|administrator|user')->group(function(){
     Route::get('/', 'AdminController@dashboard');
     Route::get('/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
 
@@ -43,7 +43,8 @@ Route::prefix('admin')->middleware('role:superadministrator|administrator|admin'
 
 
 
-    Route::prefix('p')->middleware('role:superadministrator|administrator|admin')->group(function(){
+
+    Route::prefix('p')->middleware('role:superadministrator|administrator|user')->group(function(){
 
         //INI ROUTE PERUSAHAAN
         Route::resource('/perusahaan', 'PerusahaanController');
@@ -56,19 +57,20 @@ Route::prefix('admin')->middleware('role:superadministrator|administrator|admin'
 
     });
 
-    Route::prefix('b')->middleware('role:superadministrator|administrator|admin')->group(function(){
-
-            //INI ROUTE BARANG
-    Route::resource('/barang    ', 'BarangController');
-
-        //INI ROUTE VARIAN
+    Route::prefix('b')->middleware('role:superadministrator|administrator|user')->group(function(){
+    Route::resource('/barang', 'BarangController');
     Route::resource('/varian', 'VarianController');
-
-        //INI ROUTE SATUAN
     Route::resource('/satuan', 'SatuanController');
+    Route::resource('/kubikasi', 'KubikasiController');
 
     });
-
+    Route::prefix('g')->middleware('role:superadministrator|administrator|user')->group(function(){
+        Route::resource('/gudang', 'GudangController');
+        Route::resource('/storrage', 'StorrageController');
+        Route::resource('/group', 'GroupController');
+        Route::resource('/raw', 'RowController');
+        Route::resource('/pallete', 'PalleteController');
+    });
 
 });
 // Route::get('/home', 'HomeController@index')->name('home');

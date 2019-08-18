@@ -146,6 +146,46 @@ return [
                     'icon'    => 'university',
                     'url'  => '#',
                     'icon_color' => 'purple',
+                    'submenu' => [
+                        [
+                        'text' => 'Daftar Gudang',
+                        'icon'    => 'bank',
+                        'url'  => 'admin/g/gudang',
+                        'icon_color' => 'red',
+                       ],
+                       [
+                        'text' => 'Storrage',
+                        'icon'    => 'hdd-o',
+                        'url'  => 'admin/g/storrage',
+                        'icon_color' => 'red',
+                        'submenu' =>[
+                                [
+                                'text' => 'Storrage',
+                                'icon'    => 'hdd-o',
+                                'url'  => 'admin/g/storrage',
+                                'icon_color' => 'red',
+                               ],
+                                [
+                                'text' => 'Pallete',
+                                'icon'    => 'inbox',
+                                'url'  => 'admin/g/pallete',
+                                'icon_color' => 'red',
+                               ],
+                               [
+                                'text' => 'Raw',
+                                'icon'    => 'road',
+                                'url'  => 'admin/g/raw',
+                                'icon_color' => 'red',
+                               ],
+                               [
+                                'text' => 'Group',
+                                'icon'    => 'cubes',
+                                'url'  => 'admin/g/group',
+                                'icon_color' => 'red',
+                               ],
+                        ]
+                       ],
+                    ]
                 ],
                 [
                     'text' => 'Barang',
@@ -155,18 +195,24 @@ return [
                     'submenu' => [
                        [
                         'text' => 'Daftar Barang',
-                        'icon'    => 'cube',
+                        'icon'    => 'cubes',
                         'url'  => 'admin/b/barang',
                         'icon_color' => 'red',
                        ],
                        [
-                        'text' => 'Daftar Varian',
+                        'text' => 'Dimensi',
+                        'icon'    => 'cube',
+                        'url'  => 'admin/b/kubikasi',
+                        'icon_color' => 'red',
+                       ],
+                       [
+                        'text' => 'Varian',
                          'icon'    => 'sort-alpha-desc',
                          'url'  => 'admin/b/varian',
                          'icon_color' => 'red',
                        ],
                        [
-                        'text' => 'Daftar Satuan',
+                        'text' => 'Satuan',
                          'icon'    => 'sort-numeric-asc',
                          'url'  => 'admin/b/satuan',
                          'icon_color' => 'red',
@@ -188,51 +234,44 @@ return [
             ],
         ],
         [
-            'text'       => 'Management Barang',
+            'text'       => 'Inbound',
+            'icon'    => 'truck',
+            'icon_color' => 'red',
+        ],
+        [
+            'text'       => 'Outbound',
+            'icon'    => 'truck',
+            'icon_color' => 'yellow',
+        ],
+        [
+            'text'       => 'Put Away',
+            'icon'    => 'download',
+            'icon_color' => 'aqua',
+        ],
+        [
+            'text'       => 'Stock Opname',
             'icon'    => 'cubes',
-            'icon_color' => 'blue',
-            'submenu' => [
-                [
-                    'text'       => 'Inbound',
-                    'icon'    => 'truck',
-                    'icon_color' => 'red',
-                ],
-                [
-                    'text'       => 'Outbound',
-                    'icon'    => 'truck',
-                    'icon_color' => 'yellow',
-                ],
-                [
-                    'text'       => 'Put Away',
-                    'icon'    => 'download',
-                    'icon_color' => 'aqua',
-                ],
-                [
-                    'text'       => 'Stock Opname',
-                    'icon'    => 'cubes',
-                    'icon_color' => 'red',
-                ],
-                [
-                    'text'       => 'Aging Stock',
-                    'icon'    => 'check',
-                    'icon_color' => 'red',
-                ],
-                [
-                    'text'       => 'FIFO',
-                    'icon'    => 'refresh',
-                    'icon_color' => 'yellow',
-                ],
-                [
-                    'text'       => 'Fast Moving',
-                    'icon'    => 'download',
-                    'icon_color' => 'aqua',
-                ],
-                [
-                    'text'       => 'Audit Trail',
-                    'icon'    => 'share',
-                    'icon_color' => 'red',
-                ],
-            ]
+            'icon_color' => 'red',
+        ],
+        [
+            'text'       => 'Aging Stock',
+            'icon'    => 'check',
+            'icon_color' => 'red',
+        ],
+        [
+            'text'       => 'FIFO',
+            'icon'    => 'refresh',
+            'icon_color' => 'yellow',
+        ],
+        [
+            'text'       => 'Fast Moving',
+            'icon'    => 'download',
+            'icon_color' => 'aqua',
+        ],
+        [
+            'text'       => 'Audit Trail',
+            'icon'    => 'share',
+            'icon_color' => 'red',
         ],
         'Management Gudang',
 

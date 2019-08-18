@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 @section('title')
-    AuroraWMS | Satuan Barang
+    AuroraWMS | Raw Storrage
 @endsection
 @section('content_header')
 <h1>
-    <span class="fa fa-sort-numeric-asc"></span> Satuan Barang
+    <span class="fa fa-road"></span> Raw Storrage
     <a href="#" data-toggle="modal" data-target="#myAddModal" class="btn-sm btn-primary"><span class="fa fa-plus"></span> Tambah Data</a>
 </h1>
 <div class="text-right">
@@ -34,7 +34,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h3 class="modal-title" id="myModalLabel">Tambah Satuan Barang <span style="margin: 19px;"></h3>
+                        <h3 class="modal-title" id="myModalLabel">Tambah Raw <span style="margin: 19px;"></h3>
                                 <div class="box box-warning">
                                         @if ($message = Session::get('info'))
                                         <div class="alert alert-info alert-block">
@@ -55,23 +55,38 @@
                                         <div class="box-body">
 
                                         <!-- Start Form -->
-                                        <form method="POST" action="{{ route('satuan.store') }}" >
+                                        <form method="POST" action="{{ route('raw.store') }}" >
                                                 {{ csrf_field() }}
                                         <div class="box-body">
                                             <div class="form-group col-md-6 required ">
                                             <label for="name" class="control-label">Nama</label>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                    <input class="form-control" placeholder="Masukkan Nama Satuan" required="required" name="name" type="text" id="name">
+                                                    <input class="form-control" placeholder="Masukkan Nama Raw" required="required" name="nama" type="text" id="nama">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-6 required ">
+                                            <label for="name" class="control-label">Jumlah Pallet</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-inbox"></i></div>
+                                                    <input class="form-control" placeholder="Masukkan Jumlah Pallet" required="required" name="jml_plt" type="number" id="jml_plt">
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6 required ">
-                                                <label for="description" class="control-label">Deskripsi</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon"><i class="fa fa-edit"></i></div>
-                                                        <input class="form-control" placeholder="Masukkan Deskripsi Satuan" required="required" name="description" type="textarea" id="description">
-                                                    </div>
+                                            <label for="name" class="control-label">Panjang</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-subscript"></i></div>
+                                                    <input class="form-control" placeholder="Masukkan Panjang Raw" required="required" name="panjang" type="number" id="panjang">
                                                 </div>
+                                            </div>
+                                            <div class="form-group col-md-6 required ">
+                                            <label for="name" class="control-label">Lebar</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-subscript"></i></div>
+                                                    <input class="form-control" placeholder="Masukkan Lebar Raw" required="required" name="lebar" type="number" id="lebar">
+                                                </div>
+                                            </div>
                                         </div>
                                         <!-- /.box-body -->
                                         <!-- box-footer -->
@@ -125,20 +140,26 @@
 
             <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                 <thead>
-                <tr role="row">
-                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">No</th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Nama</th>
-                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Deskripsi</th>
-                    <th width="150px">Aksi</th></tr>
+                <tr role="raw">
+                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rawspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">No</th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rawspan="1" colspan="1" aria-label="Brawser: activate to sort column ascending">Nama </th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rawspan="1" colspan="1" aria-label="Brawser: activate to sort column ascending">Jumlah Pallet (pa)</th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rawspan="1" colspan="1" aria-label="Brawser: activate to sort column ascending">Lebar (m)</th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rawspan="1" colspan="1" aria-label="Brawser: activate to sort column ascending">Luas (m)</th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rawspan="1" colspan="1" aria-label="Brawser: activate to sort column ascending">Space (m2)</th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rawspan="1" colspan="1" aria-label="Brawser: activate to sort column ascending">Aksi</th>
                 </thead>
                 <tbody>
-                        @if($satuan->count())
-                        @foreach($satuan as $key => $jn)
+                        @if($raw->count())
+                        @foreach($raw as $key => $jn)
                         <tr>
                             {{-- <td><input type="checkbox" class="sub_chk" data-id="{{$jn->id}}"></td> --}}
                             <td>{{$key+1}}</td>
-                            <td>{{$jn->name}}</td>
-                            <td>{{$jn->description}}</td>
+                            <td>{{$jn->nama}}</td>
+                            <td>{{$jn->jml_plt}}</td>
+                            <td>{{$jn->panjang}}</td>
+                            <td>{{$jn->lebar}}</td>
+                            <td>{{$jn->space}} ({{$jn->panjang}} X {{$jn->lebar}})</td>
                             <td>
                                     <a href="#" data-toggle="modal" data-target="#myDetailModal{{ $jn->id }}" class="btn-sm btn-warning"><span class="fa fa-info-circle"></span></a>
                                     <a href="#" data-toggle="modal" data-target="#myEditModal{{ $jn->id }}" class="btn-sm btn-primary"><span class="fa fa-edit"></span></a>
@@ -149,16 +170,29 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h3 class="modal-title" id="myModalLabel">Detail Jenis <strong>{{$jn->name}}</strong>  <span style="margin: 19px;"></h3>
+                                        <h3 class="modal-title" id="myModalLabel">Detail Raw <strong>{{$jn->nama}} {{$jn->space}} ({{$jn->panjang}} X {{$jn->lebar}})</strong>  <span style="margin: 19px;"></h3>
                                                 <div class="box box-warning">
                                                     <div class="modal-body">
                                                         <div class="box-body">
                                                             <div class="form-group col-md-6 required ">
-                                                                <label for="name" class="control-label">Nama : {{$jn->name}}</label>
+                                                                <label for="name" class="control-label">Nama : {{$jn->nama}}</label>
                                                             </div>
                                                             <div class="form-group col-md-6 required ">
-                                                                <label for="name" class="control-label">Deskripsi : {{$jn->description}}</label>
+                                                                    <label for="name" class="control-label">Jumlah Pallet : {{$jn->jml_plt}}</label>
+                                                                </div>
                                                             </div>
+                                                            <div class="form-group col-md-3 required ">
+                                                                    <label for="name" class="control-label">Lebar : {{$jn->lebar}}m</label>
+                                                                </div>
+                                                                <div class="form-group col-md-3 required ">
+                                                                        <label for="name" class="control-label">Luas : {{$jn->space}}m2</label>
+                                                                </div>
+                                                                <div class="form-group col-md-3 required ">
+                                                                        <label for="name" class="control-label">Panjang : {{$jn->panjang}}m</label>
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <img src="{{asset('image/raw.jpg')}}" style="width:800px;padding:10px;height:500px;margin-top:10px";><br><br>
+                                                            </div><!--text-center -->
                                                         </div><!-- box-body-->
                                                     </div><!-- modal-body-->
                                                 </div><!-- box-warning-->
@@ -176,11 +210,11 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h3 class="modal-title" id="myModalLabel">Edit Jenis <strong>{{$jn->name}}</strong><span style="margin: 19px;"></h3>
+                                        <h3 class="modal-title" id="myModalLabel">Edit Raw <strong>{{$jn->nama}} {{$jn->space}} ({{$jn->panjang}} X {{$jn->lebar}})</strong><span style="margin: 19px;"></h3>
                                             <div class="box box-warning">
                                                 <div class="modal-body">
                                                 <!-- Start Form -->
-                                                        <form method="POST" action="{{ route('satuan.update', $jn->id) }}" accept-charset="UTF-8" role="form" class="form-loading-button" enctype="multipart/form-data"><input name="_method" type="hidden" value="PATCH">
+                                                        <form method="POST" action="{{ route('raw.update', $jn->id) }}" accept-charset="UTF-8" role="form" class="form-loading-button" enctype="multipart/form-data"><input name="_method" type="hidden" value="PATCH">
                                                             {{method_field('patch')}}
                                                             {{csrf_field()}}
                                                             <div class="box-body">
@@ -188,14 +222,35 @@
                                                                 <label for="name" class="control-label">Nama</label>
                                                                     <div class="input-group">
                                                                         <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                    <input class="form-control" placeholder="Masukkan Nama" required="required" name="name" type="text" value="{{$jn->name}}" id="name">
+                                                                    <input class="form-control" placeholder="Masukkan Nama" required="required" name="nama" type="text" value="{{$jn->nama}}" id="nama">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group col-md-6 required ">
-                                                                <label for="description" class="control-label">Deskripsi</label>
+                                                                <label for="name" class="control-label">Jumlah Pallet</label>
                                                                     <div class="input-group">
                                                                         <div class="input-group-addon"><i class="fa fa-edit"></i></div>
-                                                                        <input class="form-control" placeholder="Masukkan Keterangan" required="required" name="description" type="text" value="{{$jn->description}}" id="description">
+                                                                    <input class="form-control" placeholder="Masukkan Nama" required="required" name="jml_plt" type="number" value="{{$jn->jml_plt}}" id="jml_plt">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6 required ">
+                                                                <label for="description" class="control-label">Panjang</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i class="fa fa-edit"></i></div>
+                                                                        <input class="form-control" placeholder="Masukkan Panjang Barang" required="required" name="panjang" type="number" value="{{$jn->panjang}}" id="panjang">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6 required ">
+                                                                <label for="description" class="control-label">Lebar</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i class="fa fa-edit"></i></div>
+                                                                        <input class="form-control" placeholder="Masukkan Panjang Barang" required="required" name="lebar" type="number" value="{{$jn->lebar}}" id="lebar">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6 required ">
+                                                                <label for="description" class="control-label">Luas</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i class="fa fa-edit"></i></div>
+                                                                        <input class="form-control" placeholder="Masukkan Panjang Barang" name="space" type="number" value="{{$jn->space}}" id="space" disabled='true'>
                                                                     </div>
                                                                 </div>
                                                                 <!-- /.box-body -->
@@ -228,7 +283,7 @@
                                         </div>
                                         <div class="modal-body">
                                                 <div class="text-center">
-                                                    <h3>Yakin Mau Menghapus<strong> {{$jn->name}} </strong>?</h3>
+                                                    <h3>Yakin Mau Menghapus<strong> {{$jn->nama}} ({{$jn->panjang}}cm X {{$jn->lebar}}cm) </strong>?</h3>
                                                 </div>
                                                 @if ($errors->any())
                                                 <div class="alert alert-danger">
@@ -239,7 +294,7 @@
                                                     </ul>
                                                 </div><br />
                                                 @endif
-                                            <form method="post" action="{{ route('satuan.destroy',$jn->id) }}" style="margin: 19px;">
+                                            <form method="post" action="{{ route('raw.destroy',$jn->id) }}" style="margin: 19px;">
                                                     {{csrf_field()}}
                                                     @method('DELETE')
                                             <div class="modal-footer">

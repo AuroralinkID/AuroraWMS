@@ -206,7 +206,7 @@
                             <td>{{$pt->telepon}}</td>
                             <td>{{$pt->website}}</td>
                             <td>{{$pt->jenis['name']}}</td>
-                            <td>{{$pt->kategori['name']}}</td>
+                            <td class="btn betn-outline" style="background-color: {{$pt->kategori['warna']}}">{{$pt->kategori['name']}}</td>
                             <td>
                                     <a href="#" data-toggle="modal" data-target="#myDetailModal{{ $pt->id }}" class="btn-sm btn-warning"><span class="fa fa-info-circle"></span></a>
                                     <a href="#" data-toggle="modal" data-target="#myEditModal{{ $pt->id }}" class="btn-sm btn-primary"><span class="fa fa-edit"></span></a>

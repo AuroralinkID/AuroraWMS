@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 @section('title')
-    AuroraWMS | Jenis
+    AuroraWMS | Variant
 @endsection
 @section('content_header')
 <h1>
-    <span class="fa fa-list"></span> Jenis Perusahaan
+    <span class="fa  fa-sort-alpha-desc"></span> Variant Barang
     <a href="#" data-toggle="modal" data-target="#myAddModal" class="btn-sm btn-primary"><span class="fa fa-plus"></span> Tambah Jenis</a>
 </h1>
 <div class="text-right">
@@ -34,7 +34,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h3 class="modal-title" id="myModalLabel">Tambah Jenis Perusahaan <span style="margin: 19px;"></h3>
+                        <h3 class="modal-title" id="myModalLabel">Tambah Variant Barang <span style="margin: 19px;"></h3>
                                 <div class="box box-warning">
                                         @if ($message = Session::get('info'))
                                         <div class="alert alert-info alert-block">
