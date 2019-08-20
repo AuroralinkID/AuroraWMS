@@ -188,15 +188,15 @@ return [
                     ]
                 ],
                 [
-                    'text' => 'Barang',
+                    'text' => 'Produk',
                     'icon'    => 'cubes',
                     'url'  => '#',
                     'icon_color' => 'red',
                     'submenu' => [
                        [
-                        'text' => 'Daftar Barang',
+                        'text' => 'Daftar Produk',
                         'icon'    => 'cubes',
-                        'url'  => 'admin/b/barang',
+                        'url'  => 'admin/b/produk',
                         'icon_color' => 'red',
                        ],
                        [
@@ -215,6 +215,12 @@ return [
                         'text' => 'Satuan',
                          'icon'    => 'sort-numeric-asc',
                          'url'  => 'admin/b/satuan',
+                         'icon_color' => 'red',
+                       ],
+                       [
+                        'text' => 'Near Exired Date',
+                         'icon'    => 'calendar',
+                         'url'  => 'admin/b/ned',
                          'icon_color' => 'red',
                         ]
                     ]

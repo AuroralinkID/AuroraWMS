@@ -1,15 +1,15 @@
 @extends('adminlte::page')
 @section('title')
-    AuroraWMS | Variant
+    AuroraWMS | Ned
 @endsection
 @section('content_header')
 <h1>
-    <span class="fa  fa-sort-alpha-desc"></span> Variant Barang
-    <a href="#" data-toggle="modal" data-target="#myAddModal" class="btn-sm btn-primary"><span class="fa fa-plus"></span> Tambah Jenis</a>
+    <span class="fa fa-calendar"></span> Near Expired Date
+    <a href="#" data-toggle="modal" data-target="#myAddModal" class="btn-sm btn-primary"><span class="fa fa-plus"></span> Tambah Data</a>
 </h1>
 <div class="text-right">
-    <a href="#" data-toggle="modal" data-target="#myExpModal" class="btn-sm btn-success"><span class="fa fa-download"></span> Export</a>
-    <a href="#" data-toggle="modal" data-target="#myImpModal" class="btn-sm btn-success"><span class="fa fa-upload"></span> Import</a>
+    <a href="#" data-toggle="modal" data-target="#myExpModal" class="btn-sm btn-success"><span class="fa fa-download"></span> Export Data</a>
+    <a href="#" data-toggle="modal" data-target="#myImpModal" class="btn-sm btn-success"><span class="fa fa-upload"></span> Import Data</a>
 </div>
 @stop
 @section('content')
@@ -34,7 +34,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h3 class="modal-title" id="myModalLabel">Tambah Variant Barang <span style="margin: 19px;"></h3>
+                        <h3 class="modal-title" id="myModalLabel">Tambah Ned <span style="margin: 19px;"></h3>
                                 <div class="box box-warning">
                                         @if ($message = Session::get('info'))
                                         <div class="alert alert-info alert-block">
@@ -55,15 +55,15 @@
                                         <div class="box-body">
 
                                         <!-- Start Form -->
-                                        <form method="POST" action="{{ route('varian.store') }}" >
+                                        <form method="POST" action="{{ route('ned.store') }}" >
                                                 {{ csrf_field() }}
                                         <div class="box-body">
                                             <div class="form-group col-md-6 required ">
                                             <label for="name" class="control-label">Nama</label>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                    <input class="form-control" placeholder="Masukkan Nama Jenis Perusahaan" required="required" name="name" type="text" id="name">
-                                                </div>
+                                                    <input class="form-control" placeholder="Masukkan Nama" required="required" name="name" type="text" id="name">
+                                            </div>
                                             </div>
                                             <div class="form-group col-md-6 required ">
                                                 <label for="description" class="control-label">Deskripsi</label>
@@ -71,7 +71,21 @@
                                                         <div class="input-group-addon"><i class="fa fa-edit"></i></div>
                                                         <input class="form-control" placeholder="Masukkan Deskripsi" required="required" name="description" type="textarea" id="description">
                                                     </div>
-                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 required ">
+                                                <label for="description" class="control-label">Tgl Terima</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
+                                                        <input class="form-control" placeholder="Masukkan Contoh Tgl Produksi" required="required" name="tgl_produksi" type="date" id="tgl_produksi">
+                                                    </div>
+                                            </div>
+                                            <div class="form-group col-md-6 required ">
+                                                <label for="description" class="control-label">Tgl Expired</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                                        <input class="form-control" placeholder="Masukkan  Contoh Tgl Expired" required="required" name="tgl_exp" type="date" id="tgl_exp">
+                                                    </div>
+                                            </div>
                                         </div>
                                         <!-- /.box-body -->
                                         <!-- box-footer -->
@@ -129,16 +143,20 @@
                     <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">No</th>
                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Nama</th>
                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Deskripsi</th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Tgl Exp. Date</th>
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Near Ed</th>
                     <th width="150px">Aksi</th></tr>
                 </thead>
                 <tbody>
-                        @if($variant ->count())
-                        @foreach($variant  as $key => $jn)
+                        @if($ned->count())
+                        @foreach($ned as $key => $jn)
                         <tr>
                             {{-- <td><input type="checkbox" class="sub_chk" data-id="{{$jn->id}}"></td> --}}
                             <td>{{$key+1}}</td>
                             <td>{{$jn->name}}</td>
                             <td>{{$jn->description}}</td>
+                            <td>{{$jn->tgl_exp}}</td>
+                            <td>{{$jn->near_ed}}</td>
                             <td>
                                     <a href="#" data-toggle="modal" data-target="#myDetailModal{{ $jn->id }}" class="btn-sm btn-warning"><span class="fa fa-info-circle"></span></a>
                                     <a href="#" data-toggle="modal" data-target="#myEditModal{{ $jn->id }}" class="btn-sm btn-primary"><span class="fa fa-edit"></span></a>
@@ -180,7 +198,7 @@
                                             <div class="box box-warning">
                                                 <div class="modal-body">
                                                 <!-- Start Form -->
-                                                        <form method="POST" action="{{ route('varian.update', $jn->id) }}" accept-charset="UTF-8" role="form" class="form-loading-button" enctype="multipart/form-data"><input name="_method" type="hidden" value="PATCH">
+                                                        <form method="POST" action="{{ route('ned.update', $jn->id) }}" accept-charset="UTF-8" role="form" class="form-loading-button" enctype="multipart/form-data"><input name="_method" type="hidden" value="PATCH">
                                                             {{method_field('patch')}}
                                                             {{csrf_field()}}
                                                             <div class="box-body">
@@ -196,6 +214,27 @@
                                                                     <div class="input-group">
                                                                         <div class="input-group-addon"><i class="fa fa-edit"></i></div>
                                                                         <input class="form-control" placeholder="Masukkan Keterangan" required="required" name="description" type="text" value="{{$jn->description}}" id="description">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6 required ">
+                                                                <label for="description" class="control-label">Tgl Sekarang</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
+                                                                        <input class="form-control" placeholder="Masukkan Keterangan" required="required" name="tgl_produksi" type="date" value="{{$jn->tgl_produksi}}" id="produksi">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6 required ">
+                                                                <label for="description" class="control-label">Tgl Expired</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
+                                                                        <input class="form-control" placeholder="Masukkan Keterangan" required="required" name="tgl_exp" type="date" value="{{$jn->tgl_exp}}" id="tgl_exp">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6 required ">
+                                                                <label for="description" class="control-label">Near Ed</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                                                        <input class="form-control" placeholder="Masukkan Keterangan" required="required" name="near_ed" type="text" value="{{$jn->near_ed}}" id="near_ed" disabled="true">
                                                                     </div>
                                                                 </div>
                                                                 <!-- /.box-body -->
@@ -239,7 +278,7 @@
                                                     </ul>
                                                 </div><br />
                                                 @endif
-                                            <form method="post" action="{{ route('varian.destroy',$jn->id) }}" style="margin: 19px;">
+                                            <form method="post" action="{{ route('ned.destroy',$jn->id) }}" style="margin: 19px;">
                                                     {{csrf_field()}}
                                                     @method('DELETE')
                                             <div class="modal-footer">

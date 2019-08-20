@@ -58,10 +58,11 @@ Route::prefix('admin')->middleware('role:superadministrator|administrator|user')
     });
 
     Route::prefix('b')->middleware('role:superadministrator|administrator|user')->group(function(){
-    Route::resource('/barang', 'BarangController');
+    Route::resource('/produk', 'ProdukController');
     Route::resource('/varian', 'VarianController');
     Route::resource('/satuan', 'SatuanController');
     Route::resource('/kubikasi', 'KubikasiController');
+    Route::resource('/ned', 'NedController');
 
     });
     Route::prefix('g')->middleware('role:superadministrator|administrator|user')->group(function(){

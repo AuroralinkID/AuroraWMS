@@ -14,4 +14,9 @@ class Kubikasi extends Model
      * @var array
      */
     protected $fillable = ['nama', 'panjang', 'lebar', 'tinggi', 'berat'];
+
+    public function produk()
+    {
+        return $this->hasOne(Produk::class);
+    }
 }

@@ -14,10 +14,10 @@ class Satuan extends Model
          *
          * @var array
          */
-        protected $fillable = ['name', 'description'];
+        protected $fillable = ['name'];
 
-        // public function barang()
-        // {
-        //     return $this->hasOne(Barang::class);
-        // }
+        public function produk()
+        {
+            return $this->hasOne('App\Produk');
+        }
 }

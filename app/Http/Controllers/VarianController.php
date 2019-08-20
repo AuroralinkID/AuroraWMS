@@ -15,7 +15,7 @@ class VarianController extends Controller
     public function index()
     {
         $variant = Varian::all();
-        return view('admin.barang.varian')->withVariant ($variant);
+        return view('admin.produk.varian')->withVariant ($variant);
     }
 
     /**
@@ -47,7 +47,7 @@ class VarianController extends Controller
         if ($variant->save()) {
             return redirect()->back()->with('success','Data Berhasil disimpan');
         } else {
-            return redirect()->route('barang.varian.create')->with('danger','Ups... Maaf');
+            return redirect()->back()->with('danger','Ups... Maaf');
         }
     }
 
@@ -95,7 +95,7 @@ class VarianController extends Controller
         if ($variant->save()) {
             return redirect()->back()->with('success','Data Berhasil diupdate');
         } else {
-            return redirect()->route('barang.varian.edit')->with('danger','Ups...');
+            return redirect()->back()->with('danger','Ups...');
         }
     }
 

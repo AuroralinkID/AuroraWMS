@@ -15,7 +15,7 @@ class SatuanController extends Controller
     public function index()
     {
         $satuan = Satuan::all();
-        return view('admin.barang.satuan')->withSatuan($satuan);
+        return view('admin.produk.satuan')->withSatuan($satuan);
     }
 
     /**

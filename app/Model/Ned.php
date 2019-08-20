@@ -14,10 +14,10 @@ class Ned extends Model
          *
          * @var array
          */
-        protected $fillable = ['name', 'description', 'tgl_produksi', 'tgl_expired', 'near_ed'];
+        protected $fillable = ['name'];
 
-        // public function barang()
-        // {
-        //     return $this->hasOne(Barang::class);
-        // }
+        public function produk()
+        {
+            return $this->hasOne(Produk::class);
+        }
 }

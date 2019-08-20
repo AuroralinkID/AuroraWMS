@@ -16,7 +16,7 @@ class KubikasiController extends Controller
     {
         $kubikasi = Kubikasi::all();
 
-        return view('admin.barang.kubikasi')->withKubikasi($kubikasi);
+        return view('admin.produk.kubikasi')->withKubikasi($kubikasi);
     }
 
     /**

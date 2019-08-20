@@ -18,4 +18,8 @@ class Group extends Model
     public function storage(){
         return $this->hasOne(Storrage::class);
     }
+    public function produk()
+    {
+        return $this->hasOne(Produk::class);
+    }
 }

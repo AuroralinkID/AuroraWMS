@@ -40,4 +40,8 @@ class Supplier extends Model
             return str_pad($this->id, 5, 0, STR_PAD_LEFT);
 
         }
+        public function produk()
+        {
+            return $this->hasOne(Produk::class);
+        }
 }

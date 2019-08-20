@@ -123,21 +123,6 @@ class PerusahaanController extends Controller
         $perusahaan->kategori_id = $request->kategori_id;
         $perusahaan->jenis_id = $request->jenis_id;
 
-        // if($request->kategori == null){
-        //     $kategori = 0;
-        // }
-        // else{
-        //     $kategori = $request->kategori;
-        // }
-        // $perusahaan->kategori()->attach($kategori);
-
-        // if($request->jenis == null){
-        //     $jenis = 0;
-        // }
-        // else{
-        //     $jenis = $request->jenis;
-        // }
-        // $perusahaan->jenis()->attach($jenis);
         if($request->hasFile('logo'));
             $request->file('logo')->move('image/', $request->file('logo')->getClientOriginalName());
             $perusahaan->logo = $request->file('logo')->getClientOriginalName();

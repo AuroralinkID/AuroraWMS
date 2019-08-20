@@ -16,8 +16,8 @@ class Varian extends Model
      */
     protected $fillable = ['name', 'description'];
 
-    // public function barang()
-    // {
-    //     return $this->hasOne(Barang::class);
-    // }
+    public function produk()
+    {
+        return $this->hasOne(Produk::class);
+    }
 }
